@@ -1,19 +1,22 @@
 
-# Virtual Environment
-.venv/
-venv/
-__pycache__/
-*.pyc
+# Ignore Python Virtual Environments
+**/.venv/
+**/venv/
+**/__pycache__/
 
-# Database & Environment Secrets
+# Ignore Local Postgres Storage Data
+**/pgdata/
+**/postgres_data/
+
+# Ignore dbt Logs and Compilation Target folders
+**/target/
+**/dbt_packages/
+**/logs/
+
+# Ignore local secrets and credentials
 .env
-pgdata/
+profiles.yml
 
-# dbt Artifacts
-target/
-dbt_packages/
-logs/
-
-# Raw Data
-*.csv
-*.xlsx
+# Ignore local raw data files
+**/*.csv
+**/*.xlsx

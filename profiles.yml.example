@@ -1,0 +1,16 @@
+
+# profiles.yml.example
+# Copy this file to your local configuration directory (~/.dbt/ or project folder) and rename to profiles.yml
+
+investor_reporting:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: YOUR_POSTGRES_USER       # Match user in your .env
+      password: YOUR_POSTGRES_PASSWORD # Match password in your .env
+      port: 5432
+      dbname: YOUR_DATABASE_NAME     # Match dbname in your .env
+      schema: analytics_staging
+      threads: 4

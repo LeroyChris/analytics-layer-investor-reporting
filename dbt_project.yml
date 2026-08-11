@@ -1,0 +1,14 @@
+name: fintech_analytics
+profile: fintech_analytics
+
+seed-paths: ["seeds"]
+model-paths: ["models"]
+test-paths: ["data-tests"]
+macro-paths: ["macros"]
+
+models:
+  fintech_analytics:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

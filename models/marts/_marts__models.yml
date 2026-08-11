@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: dim_users
+    description: User dimension table containing one row per unique user with their attributes.
+    columns:
+      - name: user_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: Date dimension table with calendar attributes for every day in the analysis period.
+    columns:
+      - name: date_day
+        description: Primary key, one row per calendar day.
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_transactions
+    description: Financial transactions with only valid user references. Orphaned transactions are excluded.
+    columns:
+      - name: transaction_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: Foreign key to dim_users.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_users')
+              field: user_id
+
+  - name: fact_daily_activity
+    description: Aggregated daily user activity from app events.
+    columns:
+      - name: user_id
+        description: Foreign key to dim_users.
+        tests:
+          - not_null
+
+  - name: monthly_metrics
+    description: Monthly investor KPIs including revenue, MAU, and ARPU.
+    columns:
+      - name: month
+        description: Calendar month for the metrics.
+        tests:
+          - unique
+          - not_null
+      - name: arpu
+        description: Average Revenue Per User (total deposit revenue divided by MAU).
+        tests:
+          - not_null
+      - name: total_revenue
+        description: Sum of all deposit transactions in the month.
+        tests:
+          - not_negative

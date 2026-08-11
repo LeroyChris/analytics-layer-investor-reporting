@@ -1,0 +1,19 @@
+
+# Virtual Environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Database & Environment Secrets
+.env
+pgdata/
+
+# dbt Artifacts
+target/
+dbt_packages/
+logs/
+
+# Raw Data
+*.csv
+*.xlsx

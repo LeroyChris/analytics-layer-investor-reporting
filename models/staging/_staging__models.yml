@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: stg_users
+    description: Cleaned and deduplicated user records from the raw OLTP extract.
+    columns:
+      - name: user_id
+        description: Unique identifier for each user.
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: User email address.
+        tests:
+          - not_null
+      - name: platform
+        description: Platform the user signed up on.
+        tests:
+          - accepted_values:
+              values: ['ios', 'android', 'web']
+
+  - name: stg_transactions
+    description: Financial transactions with null amounts filtered out.
+    columns:
+      - name: transaction_id
+        description: Unique identifier for each transaction.
+        tests:
+          - unique
+          - not_null
+      - name: amount_idr
+        description: Transaction amount in Indonesian Rupiah.
+        tests:
+          - not_null
+          - not_negative
+      - name: user_id
+        description: Reference to the user who made the transaction.
+        tests:
+          - not_null
+
+  - name: stg_app_events
+    description: User activity events from the mobile and web apps.
+    columns:
+      - name: event_id
+        description: Unique identifier for each event.
+        tests:
+          - unique
+          - not_null
